@@ -72,3 +72,30 @@ $app->delete('/comments/:id', $auth(2), function($id) use ($app) {
     $app->halt(200, json_encode(['message' => 'Comment deleted!']));
   
 });
+
+// GET: /posts/[id]
+$app->get('/comments/:id', $auth(0), function($id) use ($app) {
+
+    // Find post
+    $comment = Comment::withCount('likes')
+        ->with('user')
+        ->when($app->authenticated, function ($query) use ($app) {
+                return $query->with([ 'likes' => function ($query) use ($app) {
+                   return $query->where('user_id', $app->user_id);
+            }]);
+                })
+        ->find($id);
+
+    // 404 if not found
+    if (!$comment) {
+        $app->notFound();
+    }
+
+    // Check if post is liked
+    if ($app->authenticated) {
+        $comment->is_liked();
+    }
+
+    echo json_encode($comment);
+ 
+});

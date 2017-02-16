@@ -176,6 +176,14 @@ Unlikes the post from the current account.
 }
 ```
 
+### Get Comment <span class="level one"></span>
+
+- GET /comments/[id]
+- Accept: application/json
+- Authorization: Bearer [access_token] *Optional*
+
+Returns the specified comment
+
 ### Delete A Comment <span class="level two"></span>
 
 - DELETE /comments/[comments_id]
