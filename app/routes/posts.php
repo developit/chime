@@ -1,7 +1,7 @@
 <?php
 
 // GET: /posts/[id]
-$app->get('/posts/:id', $auth(0), $paginate, function($id) use ($app) {
+$app->get('/posts/:id', $auth(0), function($id) use ($app) {
 
     // Find post
     $post = Post::withCount('comments', 'likes')
