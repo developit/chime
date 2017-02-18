@@ -116,7 +116,7 @@ $app->post('/account/authorize', function() use ($app) {
 
     // Success, give them the token!
     else {
-        $app->halt(200, json_encode(['message' => 'Authorization successful, access token granted', 'access_token' => $encoded['token']]));
+        $app->halt(200, json_encode(['message' => 'Authorization successful, access token granted', 'user' => $user, 'access_token' => $encoded['token']]));
     }    
 
 });
