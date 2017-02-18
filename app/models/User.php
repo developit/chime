@@ -90,6 +90,14 @@ class User extends Base
     }
 
     /**
+    * Get all of the notifiations for the user
+    */
+    public function notifications()
+    {
+        return $this->hasMany('Notification');
+    }   
+
+    /**
      * Always hash the password when it's set
      */
     public function setPasswordAttribute($value) {

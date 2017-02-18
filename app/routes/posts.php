@@ -153,10 +153,13 @@ $app->post('/posts/:id/comment', $auth(2), function($id) use ($app) {
         $app->halt(400, json_encode(['message' => 'Comment creation failed, try again']));
     }
 
-    // Success, tell the user
-    else {
-        echo json_encode(['message' => 'Comment created successfully']);
+    // Notify the post owner about the comment (if it wasn't their own post)
+    if ($post->user_id != $app->user_id) {
+        $notification = Notification::create(['user_id' => $post->user_id, 'notifier_id' => $app->user_id, 'notification_type' => 'comment', 'object_type' => 'post', 'object_id' => $post->id]);
     }
+
+    // Success, tell the user
+    echo json_encode(['message' => 'Comment created successfully']);
 
 });
 
@@ -181,6 +184,11 @@ $app->put('/posts/:id/like', $auth(2), function($id) use ($app) {
         $like = new Like(['user_id' => $app->user_id]);
         $liked = $post->likes()->save($like);
     }
+
+    // Notify the post owner about the like (if it wasn't their own post)
+    if ($post->user_id != $app->user_id) {
+        $notification = Notification::updateOrCreate(['user_id' => $post->user_id, 'notifier_id' => $app->user_id, 'notification_type' => 'like', 'object_type' => 'post', 'object_id' => $post->id]);
+    }    
 
     // Tell the user it's liked
     $app->halt(200, json_encode(['message' => 'Post liked!']));

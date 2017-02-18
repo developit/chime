@@ -22,6 +22,11 @@ $app->put('/comments/:id/like', $auth(2), function($id) use ($app) {
         $liked = $comment->likes()->save($like);
     }
 
+    // Notify the comment owner about the like (if it wasn't their own comment)
+    if ($comment->user_id != $app->user_id) {
+        $notification = Notification::updateOrCreate(['user_id' => $comment->user_id, 'notifier_id' => $app->user_id, 'notification_type' => 'like', 'object_type' => 'comment', 'object_id' => $comment->id]);
+    }  
+
     // Tell the user it's liked
     $app->halt(200, json_encode(['message' => 'Comment liked!']));
   

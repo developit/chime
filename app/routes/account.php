@@ -149,6 +149,23 @@ $app->get('/timeline', $auth(1), $paginate, function() use ($app) {
 
 });
 
+// GET: /notifications
+$app->get('/notifications', $auth(1), $paginate, function() use ($app) {
+
+    $user = User::find($app->user_id);
+
+    $notifications = $user->notifications()
+        ->with('user')->latest()->skip($app->offset)->take(20)->get();
+
+    if (!$notifications) {
+        $app->halt(404, json_encode(['message' => 'There was an error']));
+    }
+
+    $app->halt(200, json_encode($notifications)); 
+
+});
+
+
 // POST: /account/profile
 $app->post('/account/profile', $auth(3), function() use ($app) {
 

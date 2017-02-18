@@ -123,6 +123,9 @@ $app->put('/users/:username/follow', $auth(3), function($username) use ($app) {
     // Attach the follow
     $user->followers()->syncWithoutDetaching([$app->user_id]);
 
+    // Notify the followed user
+    $notification = Notification::updateOrCreate(['user_id' => $user->id, 'notifier_id' => $app->user_id, 'notification_type' => 'follow', 'object_type' => 'user']);
+
     $app->halt(200, json_encode(['message' => 'User followed']));
   
 });
