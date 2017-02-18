@@ -100,8 +100,6 @@ $app->post('/account/authorize', function() use ($app) {
     }
 
     // Generate a token
-    $access_token = strtoupper(hash('sha256', uniqid('', true)));
-
     $encoded = $token->generate($user, $request['description'], $request['access_level']);
 
     // Set token properties
