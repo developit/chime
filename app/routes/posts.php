@@ -6,11 +6,11 @@ $app->get('/posts/:id', $auth(0), function($id) use ($app) {
     // Find post
     $post = Post::withCount('comments', 'likes')
         ->with('user')
-		->when($app->authenticated, function ($query) use ($app) {
-		        return $query->with([ 'likes' => function ($query) use ($app) {
+        ->when($app->authenticated, function ($query) use ($app) {
+                return $query->with([ 'likes' => function ($query) use ($app) {
                    return $query->where('user_id', $app->user_id);
-        	}]);
-		        })
+            }]);
+                })
         ->find($id);
 
     // 404 if not found
@@ -19,8 +19,8 @@ $app->get('/posts/:id', $auth(0), function($id) use ($app) {
     }
 
     // Check if post is liked
-	if ($app->authenticated) {
-    	$post->is_liked();
+    if ($app->authenticated) {
+        $post->is_liked();
     }
 
     echo json_encode($post);
@@ -32,13 +32,18 @@ $app->get('/posts/:id/with_comments', $auth(0), $paginate, function($id) use ($a
 
     // Find post with comments
     $post = Post::withCount('comments', 'likes')
+    ->when($app->authenticated, function ($query) use ($app) {
+            return $query->with([ 'likes' => function ($query) use ($app) {
+               return $query->where('user_id', $app->user_id);
+        }]);
+            })
     ->with(['user', 'comments' => function ($query) use ($app) {
     $query->with('user')->withCount('likes')->skip($app->offset)->take(20)->when($app->authenticated, function ($query) use ($app) {
-		        return $query->with([ 'likes' => function ($query) use ($app) {
+                return $query->with([ 'likes' => function ($query) use ($app) {
                    return $query->where('user_id', $app->user_id);
-        		}]);
-		    });
-        }])	
+                }]);
+            });
+        }]) 
     ->find($id);
 
     if (!$post) {
@@ -47,11 +52,11 @@ $app->get('/posts/:id/with_comments', $auth(0), $paginate, function($id) use ($a
 
     // Check if post is liked & if comments are liked
     if ($app->authenticated) {
-	    $post->is_liked();
+        $post->is_liked();
 
-	    $post->comments->each(function($item) use ($app) {
-	        $item->is_liked($app->user_id);
-	    });  
+        $post->comments->each(function($item) use ($app) {
+            $item->is_liked($app->user_id);
+        });  
     }  
 
     echo json_encode($post);
