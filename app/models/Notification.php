@@ -16,9 +16,9 @@ class Notification extends Base
     /**
      * The senders of the notifications
      */
-	public function user()
-	{
-	  return $this->belongsToMany('User', 'notifications', 'id', 'notifier_id');
-	}
+    public function user()
+    {
+      return $this->belongsTo('User', 'notifier_id');
+    }
 
 }
