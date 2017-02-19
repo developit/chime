@@ -108,7 +108,7 @@ CREATE TABLE notifications
 	user_id INT NOT NULL,
 	notifier_id INT NOT NULL,
 	notification_type VARCHAR(32) NOT NULL,
-	object_id INT NOT NULL,
+	object_id INT,
 	object_type VARCHAR(32) NOT NULL,
 	created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
 	updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
