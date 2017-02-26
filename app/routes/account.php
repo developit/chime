@@ -132,15 +132,26 @@ $app->get('/timeline', $auth(1), $paginateBefore, function() use ($app) {
     ->with(['likes' => function ($query) use ($app) {
             $query->where('user_id', $app->user_id);
     }])
-    ->when($app->before_id, function($query) use ($app){
+    ->where(function ($query) use ($app) {
+        $query->when($app->before_id, function($query) use ($app){
         return $query->where('id', '<', $app->before_id);
+            })
+        ->whereIn('user_id', function($query) use ($app)
+            {
+              $query->select('follow_id')
+                    ->from('follows')
+                    ->where('user_id', $app->user_id);
+            });
     })
-    ->whereIn('user_id', function($query) use ($app)
-    {
-      $query->select('follow_id')
-            ->from('follows')
-            ->where('user_id', $app->user_id);
-    })->orWhere('user_id', $app->user_id)->latest()->take(20)->get();
+    ->orWhere(function ($query) use ($app) {
+        $query->when($app->before_id, function($query) use ($app){
+        return $query->where('id', '<', $app->before_id);
+            })
+        ->where('user_id', $app->user_id);
+    })
+    ->latest()
+    ->take(20)
+    ->get();
 
     if (!$posts) {
         $app->halt(404, json_encode(['message' => 'There was an error']));
