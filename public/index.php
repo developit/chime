@@ -39,8 +39,24 @@ require __DIR__ . '/../app/config/jwt.php';
     'hashtag' => '[a-zA-Z0-9]{1,200}'
 ));
 
-// Pagination middleware
-$paginate = function () use ($app) {
+// Pagination middleware (?before_id=[id])
+$paginateBefore = function () use ($app) {
+    $before_id = $app->request()->params('before_id');
+    if (is_numeric($before_id) && $before_id >= 0) {
+        $app->before_id = $before_id;
+    }
+};
+
+// Pagination middleware (?after_id=[id])
+$paginateAfter = function () use ($app) {
+    $after_id = $app->request()->params('after_id');
+    if (is_numeric($after_id) && $after_id >= 0) {
+        $app->after_id = $after_id;
+    }
+};
+
+// Pagination middleware (?offset=)
+$paginateOffset = function () use ($app) {
     $offset = $app->request()->params('offset');
     if (is_numeric($offset) && $offset >= 0) {
         $app->offset = $offset;

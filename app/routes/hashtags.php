@@ -1,7 +1,7 @@
 <?php
 
 // GET: /hashtag/[hashtag]
-$app->get('/hashtag/:hashtag', $auth(0), function($hashtag) use ($app) {
+$app->get('/hashtag/:hashtag', $auth(0), $paginateBefore, function($hashtag) use ($app) {
 
     // Get posts with specified hashtag
     $posts = Post::whereRaw('find_in_set(?, hashtags)', [$hashtag])
@@ -12,7 +12,10 @@ $app->get('/hashtag/:hashtag', $auth(0), function($hashtag) use ($app) {
                return $query->where('user_id', $app->user_id);
         }]);
             })
-    ->latest()->skip($app->offset)->take(20)->get();
+    ->when($app->before_id, function($query) use ($app){
+        return $query->where('id', '<', $app->before_id);
+    })
+    ->latest()->take(20)->get();
 
     // Check posts exist
     if (count($posts) <= 0) {

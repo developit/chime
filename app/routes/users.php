@@ -35,7 +35,7 @@ $app->get('/users/:username', $auth(0), function($username) use ($app) {
 
 });
 
-$app->get('/users/:username/posts', $auth(0), $paginate, function($username) use ($app) {
+$app->get('/users/:username/posts', $auth(0), $paginateBefore, function($username) use ($app) {
 
     $user = User::where('username', $username)->first();
 
@@ -50,8 +50,10 @@ $app->get('/users/:username/posts', $auth(0), $paginate, function($username) use
                    return $query->where('user_id', $app->user_id);
         	}]);
 		        })
+        ->when($app->before_id, function($query) use ($app){
+            return $query->where('id', '<', $app->before_id);
+        })
         ->latest()
-        ->skip($app->offset)
         ->take(20)
         ->get();
 
@@ -71,7 +73,7 @@ $app->get('/users/:username/posts', $auth(0), $paginate, function($username) use
 });
 
 
-$app->get('/users/:username/comments', $auth(0), $paginate, function($username) use ($app) {
+$app->get('/users/:username/comments', $auth(0), $paginateBefore, function($username) use ($app) {
 
     $user = User::where('username', $username)->first();
 
@@ -86,9 +88,12 @@ $app->get('/users/:username/comments', $auth(0), $paginate, function($username) 
                    return $query->where('user_id', $app->user_id);
         	}]);
 		        })
+        ->when($app->before_id, function($query) use ($app){
+            return $query->where('id', '<', $app->before_id);
+        })
         ->latest()
-        ->skip($app->offset)
-        ->take(20)->get();
+        ->take(20)
+        ->get();
 
     if (!$comments) {
         $app->halt(404, json_encode(['message' => 'There was an error']));
@@ -153,7 +158,7 @@ $app->delete('/users/:username/follow', $auth(3), function($username) use ($app)
 });
 
 // GET: /users/[username]/followers
-$app->get('/users/:username/followers', $auth(0), $paginate, function($username) use ($app) {
+$app->get('/users/:username/followers', $auth(0), $paginateOffset, function($username) use ($app) {
 
     // Find user
     $user = User::where('username', $username)->first();
@@ -174,7 +179,7 @@ $app->get('/users/:username/followers', $auth(0), $paginate, function($username)
 });
 
 // GET: /users/[username]/following
-$app->get('/users/:username/following', $auth(0), $paginate, function($username) use ($app) {
+$app->get('/users/:username/following', $auth(0), $paginateOffset, function($username) use ($app) {
 
     // Find user
     $user = User::where('username', $username)->first();

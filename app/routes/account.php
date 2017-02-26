@@ -1,7 +1,7 @@
 <?php
 
 // GET: /public
-$app->get('/public', $auth(0), $paginate, function() use ($app) {
+$app->get('/public', $auth(0), $paginateBefore, function() use ($app) {
     
     $posts = Post::withCount('comments', 'likes')
     ->with('user')
@@ -10,7 +10,10 @@ $app->get('/public', $auth(0), $paginate, function() use ($app) {
                return $query->where('user_id', $app->user_id);
         }]);
             })
-    ->latest()->skip($app->offset)->take(20)->get();
+    ->when($app->before_id, function($query) use ($app){
+        return $query->where('id', '<', $app->before_id);
+    })
+    ->latest()->take(20)->get();
 
     if (!$posts) {
         $app->halt(404, json_encode(['message' => 'There was an error']));
@@ -122,19 +125,22 @@ $app->post('/account/authorize', function() use ($app) {
 });
 
 // GET: /timeline
-$app->get('/timeline', $auth(1), $paginate, function() use ($app) {
+$app->get('/timeline', $auth(1), $paginateBefore, function() use ($app) {
     
     $posts = Post::withCount('comments', 'likes')
     ->with('user')
     ->with(['likes' => function ($query) use ($app) {
             $query->where('user_id', $app->user_id);
     }])
+    ->when($app->before_id, function($query) use ($app){
+        return $query->where('id', '<', $app->before_id);
+    })
     ->whereIn('user_id', function($query) use ($app)
     {
       $query->select('follow_id')
             ->from('follows')
             ->where('user_id', $app->user_id);
-    })->orWhere('user_id', $app->user_id)->latest()->skip($app->offset)->take(20)->get();
+    })->orWhere('user_id', $app->user_id)->latest()->take(20)->get();
 
     if (!$posts) {
         $app->halt(404, json_encode(['message' => 'There was an error']));
@@ -150,12 +156,15 @@ $app->get('/timeline', $auth(1), $paginate, function() use ($app) {
 });
 
 // GET: /notifications
-$app->get('/notifications', $auth(1), $paginate, function() use ($app) {
+$app->get('/notifications', $auth(1), $paginateBefore, function() use ($app) {
 
     $user = User::find($app->user_id);
 
     $notifications = $user->notifications()
-        ->with('user')->latest()->skip($app->offset)->take(20)->get();
+        ->when($app->before_id, function($query) use ($app){
+            return $query->where('id', '<', $app->before_id);
+        })
+        ->with('user')->latest()->take(20)->get();
 
     if (!$notifications) {
         $app->halt(404, json_encode(['message' => 'There was an error']));

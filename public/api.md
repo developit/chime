@@ -52,7 +52,7 @@ A description of your app and numeric access level must be provided. Access leve
 - Accept: application/json
 - Authorization: Bearer [access_token]. *Optional*
 
-Returns the latest public posts from all users across the network. Will return 20 posts. Results can be paged through using the ?offset= parameter. For example, ?offset=20 and so forth.
+Returns the latest public posts from all users across the network. Will return 20 posts in reverse chronological order. Results can be paged through using the ?before_id=[id] parameter where the id provided is the lowest id returned in the previous response.
 
 ### Get Personalized Timeline <span class="level one"></span>
 
@@ -60,7 +60,7 @@ Returns the latest public posts from all users across the network. Will return 2
 - Accept: application/json
 - Authorization: Bearer [access_token]
 
-Returns the authorized user's timeline, including posts from every account they have followed. Will return 20 posts. Results can be paged through using the ?offset= parameter. For example, ?offset=20 and so forth.
+Returns the authorized user's timeline, including posts from every account they have followed. Will return 20 posts in reverse chronological order. Results can be paged through using the ?before_id=[id] parameter where the id provided is the lowest id returned in the previous response.
 
 ### Get Notifications <span class="level one"></span>
 
@@ -68,7 +68,7 @@ Returns the authorized user's timeline, including posts from every account they 
 - Accept: application/json
 - Authorization: Bearer [access_token]
 
-Returns the authorized user's stream of notifications including follows, likes and comments. Will return 20 latest notifications. Results can be paged through using the ?offset= parameter. For example, ?offset=20 and so forth.
+Returns the authorized user's stream of notifications including follows, likes and comments. Will return 20 latest notifications in reverse chronological order. Results can be paged through using the ?before_id=[id] parameter where the id provided is the lowest id returned in the previous response.
 
 ### Get Posts Containing a Hashtag <span class="level one"></span>
 
@@ -76,7 +76,7 @@ Returns the authorized user's stream of notifications including follows, likes a
 - Accept: application/json
 - Authorization: Bearer [access_token] *Optional*
 
-Returns all posts containing the given hashtag. Results can be paged through using the ?offset= parameter. For example, ?offset=20 and so forth. 
+Returns all posts containing the given hashtag. Will return 20 posts in reverse chronological order. Results can be paged through using the ?before_id=[id] parameter where the id provided is the lowest id returned in the previous response.
 
 ### Get User Profile <span class="level one"></span>
 
@@ -92,7 +92,7 @@ Returns the given user's profile
 - Accept: application/json
 - Authorization: Bearer [access_token] *Optional*
 
-Returns the given user's last 20 posts. Results can be paged through using the ?offset= parameter. For example, ?offset=20 and so forth. 
+Returns the given user's last 20 posts in reverse chronological order. Results can be paged through using the ?before_id=[id] parameter where the id provided is the lowest id returned in the previous response.
 
 ### Get User Comments <span class="level one"></span>
 
@@ -100,7 +100,7 @@ Returns the given user's last 20 posts. Results can be paged through using the ?
 - Accept: application/json
 - Authorization: Bearer [access_token] *Optional*
 
-Returns the given user's last 20 comments. Results can be paged through using the ?offset= parameter. For example, ?offset=20 and so forth.
+Returns the given user's last 20 comments in reverse chronological order. Results can be paged through using the ?before_id=[id] parameter where the id provided is the lowest id returned in the previous response.
 
 ### Get User's Followers <span class="level one"></span>
 
@@ -132,7 +132,7 @@ Returns the specified post
 - Accept: application/json
 - Authorization: Bearer [access_token] *Optional*
 
-Returns the specified post, with the first 20 associated comments. Comments can be paged through using the ?offset= parameter. For example, ?offset=20 and so forth.
+Returns the specified post, with the first 20 associated comments in chronological order. Comments can be paged through using the ?after_id=[id] parameter where the id provided is the highest id returned in the previous response.
 
 ### Create New Post <span class="level two"></span>
 

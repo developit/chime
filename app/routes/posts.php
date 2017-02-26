@@ -28,7 +28,7 @@ $app->get('/posts/:id', $auth(0), function($id) use ($app) {
 });
 
 // GET: /posts/[id]/with_comments
-$app->get('/posts/:id/with_comments', $auth(0), $paginate, function($id) use ($app) {
+$app->get('/posts/:id/with_comments', $auth(0), $paginateAfter, function($id) use ($app) {
 
     // Find post with comments
     $post = Post::withCount('comments', 'likes')
@@ -38,10 +38,14 @@ $app->get('/posts/:id/with_comments', $auth(0), $paginate, function($id) use ($a
         }]);
             })
     ->with(['user', 'comments' => function ($query) use ($app) {
-    $query->with('user')->withCount('likes')->skip($app->offset)->take(20)->when($app->authenticated, function ($query) use ($app) {
+            return $query->with('user')->withCount('likes')->take(20)
+            ->when($app->authenticated, function ($query) use ($app) {
                 return $query->with([ 'likes' => function ($query) use ($app) {
                    return $query->where('user_id', $app->user_id);
                 }]);
+            })
+            ->when($app->after_id, function($query) use ($app){
+                return $query->where('id', '>', $app->after_id);
             });
         }]) 
     ->find($id);
