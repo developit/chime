@@ -1,6 +1,4 @@
-# chime
-
-![It's social!](http://i.imgur.com/1wyAQpc.gif)
+![chime logo](logo.png?raw=true)
 
 chime is a social network in the form of a RESTful API. Currently under development, use at your own risk!
 
