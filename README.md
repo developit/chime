@@ -1,4 +1,4 @@
-![chime logo](logo.png?raw=true)
+# 🔔 chime
 
 chime is a social network in the form of a RESTful API. Currently under development, use at your own risk!
 
