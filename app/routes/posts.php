@@ -94,7 +94,7 @@ $app->post('/posts/create', $auth(2), function() use ($app) {
 
     // Success, tell the user
     else {
-        echo json_encode(['message' => 'Post created successfully']);
+        echo json_encode(['message' => 'Post created successfully', 'post' => $post]);
     }
 
 });
@@ -168,7 +168,7 @@ $app->post('/posts/:id/comment', $auth(2), function($id) use ($app) {
     }
 
     // Success, tell the user
-    echo json_encode(['message' => 'Comment created successfully']);
+    echo json_encode(['message' => 'Comment created successfully', 'comment' => $comment]);
 
 });
 
