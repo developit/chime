@@ -120,7 +120,7 @@ Returns a list of users the current user is following, in blocks of 20. Results 
 
 ### Get Post <span class="level one"></span>
 
-- GET /posts/[id]
+- GET /posts/[post_id]
 - Accept: application/json
 - Authorization: Bearer [access_token] *Optional*
 
@@ -128,7 +128,7 @@ Returns the specified post
 
 ### Get Post (with comments) <span class="level one"></span>
 
-- GET /posts/[id]/with_comments
+- GET /posts/[post_id]/with_comments
 - Accept: application/json
 - Authorization: Bearer [access_token] *Optional*
 
@@ -186,7 +186,7 @@ Unlikes the post from the current account.
 
 ### Get Comment <span class="level one"></span>
 
-- GET /comments/[id]
+- GET /comments/[comment_id]
 - Accept: application/json
 - Authorization: Bearer [access_token] *Optional*
 
@@ -194,7 +194,7 @@ Returns the specified comment
 
 ### Delete A Comment <span class="level two"></span>
 
-- DELETE /comments/[comments_id]
+- DELETE /comments/[comment_id]
 - Accept: application/json
 - Authorization: Bearer [access_token]
 
@@ -230,7 +230,7 @@ Follows the specified user from the current account.
 - Accept: application/json
 - Authorization: Bearer [access_token]
 
-Follows the specified user from the current account.
+Unfollows the specified user from the current account.
 
 ### Update Profile <span class="level three"></span>
 
