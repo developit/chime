@@ -38,7 +38,7 @@ Email is required for Gravatar avatar image and password recovery (to be impleme
 }
 ```
 
-Returns a JWT **access_token** to be sent via the Authorization header for all requests requiring authoriziation.
+Returns a JWT **access_token** to be sent via the Authorization header for all requests requiring authorization.
 
 A description of your app and numeric access level must be provided. Access levels are as follows:
 
@@ -108,7 +108,7 @@ Returns the given user's last 20 comments in reverse chronological order. Result
 - Accept: application/json
 - Authorization: Bearer [access_token] *Optional*
 
-Returns the users follwing the specified user, in blocks of 20. Results can be paged through using the ?offset= parameter. For example, ?offset=20 and so forth.
+Returns the users following the specified user, in blocks of 20. Results can be paged through using the ?offset= parameter. For example, ?offset=20 and so forth.
 
 ### Get User's Followed Users <span class="level one"></span>
 
@@ -120,7 +120,7 @@ Returns a list of users the current user is following, in blocks of 20. Results 
 
 ### Get Post <span class="level one"></span>
 
-- GET /posts/[id]
+- GET /posts/[post_id]
 - Accept: application/json
 - Authorization: Bearer [access_token] *Optional*
 
@@ -128,7 +128,7 @@ Returns the specified post
 
 ### Get Post (with comments) <span class="level one"></span>
 
-- GET /posts/[id]/with_comments
+- GET /posts/[post_id]/with_comments
 - Accept: application/json
 - Authorization: Bearer [access_token] *Optional*
 
@@ -163,7 +163,7 @@ Delete a post created by the current user.
 
 Likes the post from the current account.
 
-### Unike A Post <span class="level two"></span>
+### Unlike A Post <span class="level two"></span>
 
 - DELETE /posts/[post_id]/like
 - Accept: application/json
@@ -186,7 +186,7 @@ Unlikes the post from the current account.
 
 ### Get Comment <span class="level one"></span>
 
-- GET /comments/[id]
+- GET /comments/[comment_id]
 - Accept: application/json
 - Authorization: Bearer [access_token] *Optional*
 
@@ -194,7 +194,7 @@ Returns the specified comment
 
 ### Delete A Comment <span class="level two"></span>
 
-- DELETE /comments/[comments_id]
+- DELETE /comments/[comment_id]
 - Accept: application/json
 - Authorization: Bearer [access_token]
 
@@ -208,7 +208,7 @@ Delete a comment created by the current user.
 
 Likes the comment from the current account.
 
-### Unike A Comment <span class="level two"></span>
+### Unlike A Comment <span class="level two"></span>
 
 - DELETE /comments/[comment_id]/like
 - Accept: application/json
@@ -230,7 +230,7 @@ Follows the specified user from the current account.
 - Accept: application/json
 - Authorization: Bearer [access_token]
 
-Follows the specified user from the current account.
+Unfollows the specified user from the current account.
 
 ### Update Profile <span class="level three"></span>
 
