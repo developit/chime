@@ -1,5 +1,7 @@
 # 🔔 chime
 
+> NOTE: This project is **no longer actively maintained.** For an actively maintained, decentralized and open-source social network check out github.com/tootsuite/mastodon
+
 chime is a social network in the form of a RESTful API. Currently under development, use at your own risk!
 
 There is a running instance of chime you can play with @ https://chime.social
@@ -10,23 +12,23 @@ Have questions? Chat with fellow developers @ https://discord.gg/PtdN8hJ
 
 Tested on macOS Sierra and Ubuntu 16.04 running PHP 7.0.x and up.
 
-####1. First, clone the repo:
+#### 1. First, clone the repo:
 
 `git clone https://github.com/ummjackson/chime.git`
 
-####2. Make sure you have a MySQL instance running, then navigate to the root directory of the project and enter the `mysql` CLI tool and run:
+#### 2. Make sure you have a MySQL instance running, then navigate to the root directory of the project and enter the `mysql` CLI tool and run:
 
 `source app/schema.sql`
 
 This will create the needed database + tables for you.
 
-####3. Make sure you have [Composer](https://getcomposer.org/) installed, then from the root directory of the project, run:
+#### 3. Make sure you have [Composer](https://getcomposer.org/) installed, then from the root directory of the project, run:
 
 `composer install`
 
-####4. Next, open up `/config/database.php` and `/config/jwt.php` to update your database + secret key settings. 
+#### 4. Next, open up `/config/database.php` and `/config/jwt.php` to update your database + secret key settings. 
 
-####5. Once the settings are updated, start the app from the root directory using PHP's built-in server with:
+#### 5. Once the settings are updated, start the app from the root directory using PHP's built-in server with:
 
 `php -S 0.0.0.0:8080 -t public public/index.php`
 
