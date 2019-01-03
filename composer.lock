@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "45a191773649097a4272dc8f42201dde",
+    "content-hash": "58b0fd941982c051b732a5a6d28882f2",
     "packages": [
         {
             "name": "doctrine/inflector",
@@ -445,33 +445,32 @@
         },
         {
             "name": "nojimage/twitter-text-php",
-            "version": "dev-develop",
+            "version": "v1.14.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/nojimage/twitter-text-php.git",
-                "reference": "dd2c6d6b1e1e8bf3b9d5617aa208b0f2bd5604bb"
+                "reference": "4c3d764030429a227e7687a44a3fe12aaf7d0e84"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/nojimage/twitter-text-php/zipball/dd2c6d6b1e1e8bf3b9d5617aa208b0f2bd5604bb",
-                "reference": "dd2c6d6b1e1e8bf3b9d5617aa208b0f2bd5604bb",
+                "url": "https://api.github.com/repos/nojimage/twitter-text-php/zipball/4c3d764030429a227e7687a44a3fe12aaf7d0e84",
+                "reference": "4c3d764030429a227e7687a44a3fe12aaf7d0e84",
                 "shasum": ""
             },
             "require": {
-                "ext-intl": "*",
-                "ext-mbstring": "*",
                 "php": ">=5.3.3"
             },
             "require-dev": {
-                "ext-json": "*",
-                "phpunit/phpunit": "4.8.*|5.7.*|6.5.*",
+                "php": ">=5.3.3",
+                "phpunit/phpunit": "4.8.*|5.7.*",
                 "symfony/yaml": "~2.6.0",
-                "twitter/twitter-text": "^3.0.0"
+                "twitter/twitter-text": "^1.14.7"
             },
             "type": "library",
             "autoload": {
                 "psr-0": {
-                    "Twitter\\Text\\": "lib/"
+                    "Twitter\\Text\\": "lib/",
+                    "Twitter_": "compat/"
                 }
             },
             "notification-url": "https://packagist.org/downloads/",
@@ -507,7 +506,7 @@
                 "text",
                 "twitter"
             ],
-            "time": "2018-10-31T11:41:34+00:00"
+            "time": "2017-09-21T09:38:42+00:00"
         },
         {
             "name": "palanik/corsslim",
@@ -1165,9 +1164,7 @@
     "packages-dev": [],
     "aliases": [],
     "minimum-stability": "stable",
-    "stability-flags": {
-        "nojimage/twitter-text-php": 20
-    },
+    "stability-flags": [],
     "prefer-stable": false,
     "prefer-lowest": false,
     "platform": {
