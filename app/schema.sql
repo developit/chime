@@ -1,12 +1,4 @@
--- Clear everything
-DROP DATABASE IF EXISTS chime;
-
--- Create database + switch to it
-CREATE DATABASE chime
-	CHARACTER SET utf8mb4 
-	COLLATE utf8mb4_unicode_ci;
-
-USE chime;
+USE d2nc509t02ubta;
 
 -- Users
 CREATE TABLE users
@@ -27,7 +19,6 @@ CREATE TABLE users
 	updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
 	PRIMARY KEY (id)
 )
-ENGINE=InnoDB;
 
 -- App Tokens
 -- Access Levels: (1) Read (2) Read/Write (3) Read/Write/Account
@@ -58,7 +49,6 @@ CREATE TABLE posts
 	updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
 	PRIMARY KEY (id)
 )
-ENGINE=InnoDB;
 
 -- Comments
 CREATE TABLE comments
@@ -74,7 +64,6 @@ CREATE TABLE comments
 	updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
 	PRIMARY KEY (id)
 )
-ENGINE=InnoDB;
 
 -- Follows
 CREATE TABLE follows
@@ -86,7 +75,6 @@ CREATE TABLE follows
 	updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
 	PRIMARY KEY (id)
 )
-ENGINE=InnoDB;
 
 -- Likes
 CREATE TABLE likes
@@ -99,7 +87,6 @@ CREATE TABLE likes
 	updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
 	PRIMARY KEY (id)
 )
-ENGINE=InnoDB;
 
 -- Notifications
 CREATE TABLE notifications
@@ -114,4 +101,3 @@ CREATE TABLE notifications
 	updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
 	PRIMARY KEY (id)
 )
-ENGINE=InnoDB;
