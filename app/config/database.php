@@ -15,8 +15,8 @@ $capsule->addConnection([
     'database' => ltrim($DATABASE_URL["path"], "/"),
     'username' => $DATABASE_URL["user"],
     'password' => $DATABASE_URL["pass"],
-    'charset'   => 'utf8mb4',
-    'collation' => 'utf8mb4_unicode_ci',
+    'charset'   => 'utf8',
+    'collation' => 'utf8_unicode_ci',
     'sslmode' => 'require',
     'prefix' => '',
 ]);
